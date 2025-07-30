@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 
 app.get("/aa/bb", (req, res) => {
-    res.send("hoooooyyyyy cccc");
+    res.send("hoooooyyyyy ");
 });
 
 app.post("/aa/bb", (req, res) => {
@@ -24,7 +24,7 @@ app.delete("/aa/bb", (req, res) => {
 
 connectDB();
 
-app.listen(5000, () => {
+app.listen(50, () => {
     console.log("Server started")
 })
 
