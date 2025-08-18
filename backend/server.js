@@ -1,30 +1,28 @@
 import express from "express";
 import { connectDB } from "./src/config/db.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
 
-app.get("/aa/bb", (req, res) => {
-    res.send("hoooooyyyyy ");
+app.get("/api/notes", (req, res) => {
+    res.send("You got 10 notes");
 });
 
-app.post("/aa/bb", (req, res) => {
-    res.status(201).json({message: "created successfully"});
+app.post("/api/notes", (req, res) => {
+    res.json({message:"Note created successfully!"});
 });
 
-app.put("/aa/bb", (req, res) => {
-    res.status(200).json({message: "updated successfully"});
+app.put("/api/notes/:id", (req, res) => {
+    res.json({message:"Note updated successfully!"});
 });
 
-app.delete("/aa/bb", (req, res) => {
-    res.status(200).json({message: "deleted successfully"});
-});
+
 
 connectDB();
 
-app.listen(50, () => {
+app.listen(PORT, () => {
     console.log("Server started")
 })
 
