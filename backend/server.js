@@ -1,4 +1,5 @@
 import express from "express";
+import notesRoutes from "./routes/notesRoutes.js"
 import { connectDB } from "./src/config/db.js";
 import dotenv from "dotenv";
 
@@ -6,20 +7,8 @@ dotenv.config();
 
 const app = express();
 
-app.get("/api/notes", (req, res) => {
-    res.send("You got 10 notes");
-});
-
-app.post("/api/notes", (req, res) => {
-    res.json({message:"Note created successfully!"});
-});
-
-app.put("/api/notes/:id", (req, res) => {
-    res.json({message:"Note updated successfully!"});
-});
-
-
-
+app.use("/api/notes", notesRoutes)
+ 
 connectDB();
 
 app.listen(PORT, () => {
