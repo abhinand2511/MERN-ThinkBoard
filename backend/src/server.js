@@ -1,6 +1,6 @@
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js"
-import { connectDB } from "./src/config/db.js";
+import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,7 +11,7 @@ app.use("/api/notes", notesRoutes)
  
 connectDB();
 
-app.listen(5001, () => {
+app.listen(PORT, () => {
     console.log("Server started")
 })
 
