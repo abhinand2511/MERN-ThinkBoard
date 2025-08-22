@@ -2,19 +2,19 @@ import express from "express"
 
 const router = express.Router(); 
 
-router.get("/api/notes", (req, res) => {
-    res.send("You got 10 notes");
+router.get("/", (req, res) => {
+    res.json({message:"You just fetched the notes"});
 });
 
-router.post("/api/notes", (req, res) => {
+router.post("/", (req, res) => {
     res.json({message:"Note created successfully!"});
 });
 
-router.put("/api/notes/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     res.json({message:"Note updated successfully!"});
 });
 
-router.delete("/api/notes/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     res.json({message:"Note deleted successfully!"});
 });
 
