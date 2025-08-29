@@ -1,2 +1,6 @@
 .env
-/node_modules
+/node_modulesnode_modules/
+.env
+*.log
+dist/
+build/
