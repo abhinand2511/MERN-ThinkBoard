@@ -1,4 +1,4 @@
-export const getAllNotes = (req, res) => {
+export const getAllNotes = async (req, res) => {
     res.json({message:"You just fetched the notes"});
 };
 
