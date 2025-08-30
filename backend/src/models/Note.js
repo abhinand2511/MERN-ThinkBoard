@@ -13,6 +13,6 @@
 { timestamps: true }
 );
 
-const Note = mongoose.model("Note", noteShema);
+const Note = mongoose.model("Note", noteSchema);
 
 export default Note;
