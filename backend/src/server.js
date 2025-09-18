@@ -1,27 +1,47 @@
 import express from "express";
-import notesRoutes from "./routes/notesRoutes.js"
-import { connectDB } from "./config/db.js";
+import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+
+import notesRoutes from "./routes/notesRoutes.js";
+import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
 dotenv.config();
 
 const app = express();
-
 const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve();
 
-connectDB();
+// middleware
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+}
+app.use(express.json()); // this middleware will parse JSON bodies: req.body
+app.use(rateLimiter);
 
-//middleware
-app.use(express.json())
-app.use(rateLimiter)
+// our simple custom middleware
+// app.use((req, res, next) => {
+//   console.log(`Req method is ${req.method} & Req URL is ${req.url}`);
+//   next();
+// });
 
-app.use("/api/notes", notesRoutes)
- 
+app.use("/api/notes", notesRoutes);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-app.listen(PORT, () => {
-    console.log("Server started")
-})
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
-//mongodb+srv://abhinand25112001:zRfCDDjYiyKfuofC@cluster0.pfek0wt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server started on PORT:", PORT);
+  });
+});
